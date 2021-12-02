@@ -18,10 +18,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var button7 : Button
     private lateinit var button8 : Button
     private lateinit var button9 : Button
+    private lateinit var restart : Button
 
     var firstPlayer = ArrayList<Int>()
     var secondPlayer = ArrayList<Int>()
     var activePlayer = 1
+    var turns = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button7 = findViewById(R.id.button7)
         button8 = findViewById(R.id.button8)
         button9 = findViewById(R.id.button9)
+        restart = findViewById(R.id.restartButton)
 
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
@@ -51,6 +54,40 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button8.setOnClickListener(this)
         button9.setOnClickListener(this)
 
+        restart.setOnClickListener {
+            activePlayer = 0;
+            turns = 0;
+            firstPlayer = ArrayList<Int>();
+            secondPlayer = ArrayList<Int>();
+            button1.setText("")
+            button1.setBackgroundColor(Color.CYAN)
+            button1.isEnabled = true;
+            button2.setText("")
+            button2.setBackgroundColor(Color.CYAN)
+            button2.isEnabled = true;
+            button3.setText("")
+            button3.setBackgroundColor(Color.CYAN)
+            button3.isEnabled = true;
+            button4.setText("")
+            button4.setBackgroundColor(Color.CYAN)
+            button4.isEnabled = true;
+            button5.setText("")
+            button5.setBackgroundColor(Color.CYAN)
+            button5.isEnabled = true;
+            button6.setText("")
+            button6.setBackgroundColor(Color.CYAN)
+            button6.isEnabled = true;
+            button7.setText("")
+            button7.setBackgroundColor(Color.CYAN)
+            button7.isEnabled = true;
+            button8.setText("")
+            button8.setBackgroundColor(Color.CYAN)
+            button8.isEnabled = true;
+            button9.setText("")
+            button9.setBackgroundColor(Color.CYAN)
+            button9.isEnabled = true;
+        }
+
     }
 
     private fun playGame(clickedView: Button, buttonNumber: Int){
@@ -59,12 +96,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             clickedView.setBackgroundColor(Color.RED)
             activePlayer = 2
             firstPlayer.add(buttonNumber)
+            turns++
 
         } else {
             clickedView.text = "0"
             clickedView.setBackgroundColor(Color.BLUE)
             activePlayer = 1
             secondPlayer.add(buttonNumber)
+            turns++
         }
         clickedView.isEnabled = false
         check()
@@ -125,6 +164,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             Toast.makeText(this, "first player won", Toast.LENGTH_SHORT).show()
         } else if (winner == 2){
             Toast.makeText(this, "second player won", Toast.LENGTH_SHORT).show()
+        } else if (winner == 0 && turns == 9){
+            Toast.makeText(this, "draw", Toast.LENGTH_SHORT).show()
         }
 
     }
